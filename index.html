@@ -3,114 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbearia</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="fotos/favicon-32x32.png" type="image/x-icon">
+    <title>Barbearia Ruy Costa | Agendamento</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="assets/img/favicon-32x32.png" type="image/x-icon">
 </head>
 <body>
-  <main>
-    <header>
-            <h1>Barbearia Ruy Costa 💈</h1>
-            <p><small>instagram</small> <img src="fotos/logoinsta.png" alt="instagram" width="25px"></p>
-        <nav>
-                <a href="https://www.instagram.com/ruy_costa97?igsh=MXE3YnJvcmV1M21uZg%3D%3D"  target="_blank">Ruy Costa</a>
-                <a href="https://www.instagram.com/ruy_barber_.c?igsh=NTZoajhzcnN5eDYz" target="_blank">barbearia</a>
-        </nav>
-    </header>
-    
-    <section>
-        <p>Nossa localização:</p>
-        <div class="loc">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3655.263511424258!2d-46.63023392378634!3d-23.630732264146147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5b035b5a6c49%3A0x98cd4766ca175af6!2sAv.%20Miguel%20Estefno%2C%202014%20-%20Vila%20da%20Sa%C3%BAde%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2004301-001!5e0!3m2!1spt-BR!2sbr!4v1778790469928!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        <article>
-            <a href="pag002.html">GALERIA DE FOTOS</a>
-        </article>
-    </section>
-    
-    <aside class="card">
-        <h2>Tabela de valores:</h2>
-
-           <div class="linha">
-                 <div class="serviço-info">
-                 <div class="titulo">Corte Comum</div>
-                 <div class="descrição">Tesoura ou máquina</div>
-               </div>
-                 <div class="preço">R$40</div>
-           </div>
-
-           <div class="linha">
-                 <div class="serviço-info">
-                 <div class="titulo">Barba Completa</div>
-                 <div class="descrição">Navalha + toalha quente</div>
-               </div>
-                 <div class="preço">R$30</div>
-           </div>
-
-           <div class="linha">
-                 <div class="serviço-info">
-                 <div class="titulo">Corte + Barba</div>
-                 <div class="descrição">Combo clássico</div>
-                 </div>
-                 <div class="preço">R$60</div>
-           </div>
-
-           <div class="linha">
-                 <div class="serviço-info">
-                 <div class="titulo">Corte Infantil</div>
-                 </div>
-                 <div class="preço">R$10</div>
-           </div>
-
-           <div class="linha">
-                 <div class="serviço-info">
-                 <div class="titulo">Progressiva</div>
-                 </div>
-                 <div class="preço">R$60</div>
-           </div>
-
-           <div class="linha">
-                 <div class="serviço-info">
-                 <div class="titulo">luzes</div>
-                 </div>
-                 <div class="preço">R$60</div>
-           </div>
-
-           <div class="linha">
-                 <div class="serviço-info">
-                 <div class="titulo">Platinado</div>
-                 </div>
-                 <div class="preço">R$100</div>
-           </div>
-    </aside>
-
-     <section class="formulario">
-      <h4>Agende seu Horário</h4>
-      <input type="text" id="nome" placeholder="Seu Nome">
-      <select id="servico">
-            <option value="">Selecione o serviço</option>
-            <option value="Corte Comum">Corte Comum</option>
-            <option value="Barba Completa">Barba Completa</option>
-            <option value="Corte + Barba">Corte + Barba</option>
-            <option value="Corte Infantil">Corte Infantil</option>
-            <option value="Progressiva">Progressiva</option>
-            <option value="luzes">Luzes</option>
-            <option value="Platinado">Platinado</option>
-      </select>
+  
+  <header class="cabecalho">
+      <h1>Barbearia Ruy Costa 💈</h1>
       
-      <input type="date" id="data"> 
-      <input type="time" id="hora">
+      <nav class="menu-principal">
+          <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#sobre">Sobre Nós</a></li>
+              <li><a href="#servicos">Serviços</a></li>
+              <li><a href="#agendamento">Agendamento</a></li>
+              <li><a href="pages/galeria.html">Galeria</a></li>
+              <li><a href="#contato">Contato</a></li>
+          </ul>
+      </nav>
+  </header>
+  
+  <main>
+    <section id="home" class="apresentacao">
+        <h2>Bem-vindo à Barbearia Ruy Costa</h2>
+        <p>O melhor corte da região. Estilo, modernidade e um atendimento de primeira. Renove seu visual com quem entende do assunto.</p>
+    </section>
 
-      <button onclick="agendar()">Agendar</button>
-     </section>
-     
-     <section id="ListaAgendamentos">
-      <h4>Agendamentos:</h4>
-     </section>
-     <script src="script.js"></script>
+    <section id="sobre" class="sobre">
+        <h2>Sobre Nós</h2>
+        <p>Somos especialistas em cortes modernos, platinado, nevou e barboterapia. Nosso objetivo é entregar não apenas um corte, mas uma experiência que eleva sua autoestima em um ambiente preparado para você.</p>
+    </section>
 
+    <div class="conteudo-principal">
+        
+        <section id="servicos" class="info-lateral">
+            <aside class="card-precos">
+                <h2>Nossos Serviços</h2>
+                <div class="lista-servicos">
+                    <div class="linha"><span class="titulo">Corte Comum</span><span class="preço">R$ 40</span></div>
+                    <div class="linha"><span class="titulo">Barba Completa</span><span class="preço">R$ 30</span></div>
+                    <div class="linha"><span class="titulo">Corte + Barba</span><span class="preço">R$ 60</span></div>
+                    <div class="linha"><span class="titulo">Corte Infantil</span><span class="preço">R$ 30</span></div>
+                    <div class="linha"><span class="titulo">Nevou / Platinado</span><span class="preço">R$ 100</span></div>
+                </div>
+            </aside>
+        </section>
 
+        <section id="agendamento" class="formulario">
+            <h2>Agende seu Horário</h2>
+            <form id="formAgendamento" onsubmit="agendar(event)">
+                <div class="input-group">
+                    <label for="nome">Seu Nome</label>
+                    <input type="text" id="nome" placeholder="Ex: João Silva" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="servico">Serviço</label>
+                    <select id="servico" required>
+                        <option value="">Selecione...</option>
+                        <option value="Corte Comum">Corte Comum</option>
+                        <option value="Barba Completa">Barba Completa</option>
+                        <option value="Corte + Barba">Corte + Barba</option>
+                        <option value="Nevou/Platinado">Nevou / Platinado</option>
+                    </select>
+                </div>
+                
+                <div class="input-group-row">
+                    <div class="input-group">
+                        <label for="data">Data</label>
+                        <input type="date" id="data" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="hora">Horário</label>
+                        <input type="time" id="hora" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-agendar">Confirmar Agendamento</button>
+            </form>
+            
+            <div id="ListaAgendamentos" class="lista-agendamentos">
+                <h3>Horários Reservados</h3>
+                <ul id="ulAgendamentos"></ul>
+            </div>
+        </section>
+    </div>
+
+    <section id="contato" class="localizacao">
+        <h2>Contato e Localização</h2>
+        <div class="redes-sociais" style="margin-bottom: 20px;">
+            <a href="https://www.instagram.com/ruy_costa97" target="_blank">Instagram do Ruy</a> | 
+            <a href="https://www.instagram.com/ruy_barber_.c" target="_blank">Instagram da Barbearia</a>
+        </div>
+        
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3655.263511424258!2d-46.63023392378634!3d-23.630732264146147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5b035b5a6c49%3A0x98cd4766ca175af6!2sAv.%20Miguel%20Estefno%2C%202014%20-%20Vila%20da%20Sa%C3%BAde%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2004301-001!5e0!3m2!1spt-BR!2sbr!4v1778790469928!5m2!1spt-BR!2sbr" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
+    </section>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    
+    <script src="assets/js/script.js"></script>
   </main>
-
 </body>
 </html>
