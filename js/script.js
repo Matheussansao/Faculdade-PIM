@@ -1,89 +1,123 @@
-let agendamentos = [];
+/* ==========================================================================
+   1. CONFIGURAÇÃO DO FIREBASE (BASE DE DADOS)
+========================================================================== */
+// ATENÇÃO: Tens de substituir as chaves abaixo pelas chaves do teu projeto no Firebase.
+// Vai a firebase.google.com -> Consola -> Criar Projeto -> Web App (ícone </>)
+const firebaseConfig = {
+    apiKey: "COLOCA_A_TUA_API_KEY_AQUI",
+    authDomain: "O_TEU_PROJETO.firebaseapp.com",
+    projectId: "O_TEU_PROJETO",
+    storageBucket: "O_TEU_PROJETO.appspot.com",
+    messagingSenderId: "O_TEU_ID_AQUI",
+    appId: "O_TEU_APP_ID_AQUI"
+};
 
-function agendar(){
-    let nome = document.getElementById('nome').value;
-    let servico = document.getElementById('servico').value;
-    let dataOriginal = document.getElementById('data').value;
-    let partesData = dataOriginal.split("-");
-    let dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
-    let hora = document.getElementById('hora').value; 
+// Inicializar o Firebase e o Firestore
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-    //valida campos
-    if(!nome || !servico || !dataOriginal|| !hora){
-        alert("Preencha todos os campos!")
-        return;
-    }
+/* ==========================================================================
+   2. FUNÇÃO DE AGENDAMENTO (GRAVAR DADOS)
+========================================================================== */
+async function agendar(event) {
+    event.preventDefault(); // Impede que a página recarregue ao submeter
 
-    //verifica duplicidade
-    let horarioExistente = agendamentos.find(agendamento =>
+    // Capturar os valores inseridos pelo utilizador
+    const nome = document.getElementById('nome').value.trim();
+    const servico = document.getElementById('servico').value;
+    const data = document.getElementById('data').value;
+    const hora = document.getElementById('hora').value;
 
-        agendamento.data === dataOriginal &&
-        agendamento.hora === hora
-    );
-    if(horarioExistente){
-        alert("Esse horário já está agendado!");
-        return;
-    }
-
-    //objeto do agendamento
-    let novoAgendamento = {
-        nome,
-        servico,
-        data: dataOriginal,
-        hora
-    };
-
-    //adiciona no array
-    agendamentos.push(novoAgendamento);
-
-    //ordena cronologicamente
-    agendamentos.sort((a, b) =>{
-        let dataA = new Date(`${a.data} ${a.hora}`);
-        let dataB = new Date(`${b.data} ${b.hora}`);
-
-        return dataA - dataB;
-    });
-
-    //mostra agendamentos
-    mostrarAgendamentos();
+    // Selecionar o botão para criar o efeito de "A carregar..."
+    const btnAgendar = document.querySelector('.btn-agendar');
+    const textoOriginalBtn = btnAgendar.innerText;
     
-    //whatsapp
-    let mensagem = `Olá, gostaria de agendar:
+    btnAgendar.innerText = "A processar reserva...";
+    btnAgendar.disabled = true;
+    btnAgendar.style.opacity = "0.7";
 
-    nome: ${nome}
-    servico: ${servico}
-    data:${dataFormatada}
-    hora:${hora}`;
+    try {
+        // 2.1 Verificar se o horário já está ocupado nessa mesma data
+        const snapshot = await db.collection("agendamentos")
+            .where("data", "==", data)
+            .where("hora", "==", hora)
+            .get();
 
-    let telefone = "5511965511536";
-    let url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+        if (!snapshot.empty) {
+            alert("⚠️ Este horário já se encontra reservado. Por favor, escolhe outra hora.");
+            restaurarBotao(btnAgendar, textoOriginalBtn);
+            return;
+        }
 
-    window.open(url, "_blank")
+        // 2.2 Se estiver livre, grava na base de dados
+        await db.collection("agendamentos").add({
+            nome: nome,
+            servico: servico,
+            data: data,
+            hora: hora,
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+        });
 
-    //limpar formulario
-    document.getElementById('nome').value = "";
-    document.getElementById('servico').value = "";
-    document.getElementById('data').value = "";
-    document.getElementById('hora').value = "";
+        // 2.3 Sucesso
+        alert("✅ Agendamento confirmado com sucesso! O Ruy já está à tua espera.");
+        document.getElementById('formAgendamento').reset(); // Limpa o formulário
+
+    } catch (erro) {
+        console.error("Erro ao guardar o agendamento: ", erro);
+        alert("❌ Ocorreu um erro ao ligar à base de dados. Tenta novamente mais tarde.");
+    } finally {
+        restaurarBotao(btnAgendar, textoOriginalBtn);
+    }
 }
 
-function mostrarAgendamentos(){
-
-    const lista = document.getElementById("ListaAgendamentos");
-    lista.innerHTML = "<h4>Agendamentos:</h4>";
-    agendamentos.forEach(agendamento => {
-
-        let partesData = agendamento.data.split("-");
-        let dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
-        
-        lista.innerHTML += `
-        
-        <p>
-        ${dataFormatada} - 
-        ${agendamento.hora} -
-        ${agendamento.nome} -
-        ${agendamento.servico} -
-        </p>
-        `;
-    });
+// Função auxiliar para restaurar o estado do botão
+function restaurarBotao(botao, texto) {
+    botao.innerText = texto;
+    botao.disabled = false;
+    botao.style.opacity = "1";
 }
+
+/* ==========================================================================
+   3. FUNÇÃO PARA LER OS DADOS EM TEMPO REAL
+========================================================================== */
+function escutarAgendamentos() {
+    const listaUI = document.getElementById("ulAgendamentos");
+
+    // O onSnapshot mantém uma ligação ativa: se alguém agendar, a lista atualiza sozinha
+    db.collection("agendamentos")
+        .orderBy("data")
+        .orderBy("hora")
+        .onSnapshot((querySnapshot) => {
+            listaUI.innerHTML = ""; // Limpa a lista antes de redesenhar
+            
+            // Se não houver agendamentos, mostra uma mensagem amigável
+            if (querySnapshot.empty) {
+                listaUI.innerHTML = "<li style='text-align:center; color: var(--text-muted);'>Nenhum horário reservado de momento. Seja o primeiro!</li>";
+                return;
+            }
+
+            querySnapshot.forEach((doc) => {
+                const agendamento = doc.data();
+                
+                // Formatar a data (De AAAA-MM-DD para DD/MM/AAAA)
+                const partesData = agendamento.data.split("-");
+                const dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
+
+                // Criar o item da lista (li)
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <span class="agendamento-data">📅 ${dataFormatada} às ${agendamento.hora}</span><br>
+                    👤 <span style="color: var(--text-main); font-weight: 500;">${agendamento.nome}</span> <br>
+                    ✂️ <span style="color: var(--text-muted); font-size: 0.85rem;">${agendamento.servico}</span>
+                `;
+                
+                listaUI.appendChild(li);
+            });
+        }, (erro) => {
+            console.error("Erro ao escutar os agendamentos: ", erro);
+            listaUI.innerHTML = "<li style='color: #ef4444;'>Sem ligação à base de dados.</li>";
+        });
+}
+
+// Iniciar a escuta da base de dados assim que a página carregar
+window.onload = escutarAgendamentos;
