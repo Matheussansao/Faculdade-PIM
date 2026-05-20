@@ -1,3 +1,8 @@
+/* ==========================================================================
+   DESIGN SYSTEM PREMIUM - BARBER SHOP v2.1
+   Correção: Ajuste de proporção para não cortar rostos (object-fit)
+========================================================================== */
+
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root {
@@ -9,8 +14,13 @@
     --gold-neon: #e5c158;        /* Ouro champagne tecnológico */
     --gold-glow: rgba(229, 193, 88, 0.12);
     --border-subtle: #1e1e24;    /* Bordas finas modernas */
+    
+    /* Variáveis conceituais */
     --font-heading: 'Cinzel', serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
+    --radius-full: 24px;
+    --radius-md: 12px;
+    --shadow-premium: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 /* Reset Avançado */
@@ -59,6 +69,23 @@ body {
     top: 10px;
     z-index: 1000;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+.logo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover; /* Logo mantém cover para manter formato redondo */
+    object-position: center;
+    border-radius: 50%;
+    border: 2px solid var(--gold-neon);
+    margin-bottom: 12px;
+    box-shadow: 0 4px 15px var(--gold-glow);
 }
 
 .badge-premium {
@@ -123,12 +150,12 @@ body {
 /* Estilização Avançada dos Cards */
 .card-mobile {
     background-color: var(--surface-card);
-    border-radius: 24px;
+    border-radius: var(--radius-full);
     padding: 26px;
     border: 1px solid var(--border-subtle);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-premium);
 }
 
 /* Section Tags Tecnológicas */
@@ -182,6 +209,46 @@ body {
 }
 .btn-cta-scroll:hover {
     transform: translateX(4px);
+}
+
+/* ==========================================================================
+   SEÇÃO SOBRE - CORREÇÃO IMAGEM DO BARBEIRO
+========================================================================== */
+.sobre-imagens {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.img-destaque-wrapper {
+    background-color: #0c0c0e; /* Cor ligeiramente diferente para o fundo da foto */
+    border-radius: 16px;
+    border: 1px solid var(--border-subtle);
+    overflow: hidden; /* Garante que o contain respeita as bordas */
+}
+
+/* CORREÇÃO AQUI: object-fit: contain garante que o rosto não é cortado */
+.img-destaque {
+    width: 100%;
+    height: 300px; /* Aumentei um pouco a altura para dar mais espaço */
+    object-fit: contain; /* Mostra a imagem toda sem cortar */
+    object-position: center; /* Centraliza a imagem no espaço */
+}
+
+.sobre-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.sobre-grid img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover; /* Mantém cover para o salão, pois não há rostos críticos */
+    object-position: center;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
 }
 
 /* Lista de Serviços Estilo Dashboard */
@@ -349,7 +416,7 @@ ul#ulAgendamentos li {
     border: 1px solid var(--border-subtle);
 }
 
-/* Estilos Adicionais da Galeria Compartilhada */
+/* Estilos Adicionais da Galeria Compartilhada (galeria.html) */
 .galeria-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -364,7 +431,8 @@ ul#ulAgendamentos li {
 .foto-item img {
     width: 100%;
     height: 180px;
-    object-fit: cover;
+    object-fit: cover; /* Manter cover na galeria de cortes funciona bem */
+    object-position: center;
     border-radius: 16px;
     border: 1px solid var(--border-subtle);
 }
