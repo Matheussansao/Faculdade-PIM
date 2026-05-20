@@ -6,6 +6,9 @@
     <title>Ruy Costa Barber Shop</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="shortcut icon" href="assets/img/favicon-32x32.png" type="image/x-icon">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
 </head>
 <body>
   
@@ -97,15 +100,9 @@
                 </select>
             </div>
             
-            <div class="input-group-row">
-                <div class="input-group">
-                    <label for="data">Data</label>
-                    <input type="date" id="data" required>
-                </div>
-                <div class="input-group">
-                    <label for="hora">Horário</label>
-                    <input type="time" id="hora" required>
-                </div>
+            <div class="input-group">
+                <label for="dataHora">Data e Horário</label>
+                <input type="text" id="dataHora" placeholder="Toque para abrir o calendário..." required readonly>
             </div>
 
             <button type="submit" class="btn-agendar">Confirmar Agendamento</button>
@@ -131,7 +128,9 @@
 
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="./js/script.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script> <script src="./js/script.js"></script>
   </main>
 </body>
 </html>
