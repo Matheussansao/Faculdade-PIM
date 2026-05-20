@@ -1,237 +1,389 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-    --bg-color: #121214;
-    --card-bg: #202024;
-    --text-primary: #E1E1E6;
-    --text-secondary: #A8A8B3;
-    --accent-color: #04D361; 
-    --accent-hover: #04b051;
-    --border-color: #323238;
+    --bg-dark: #060608;          /* Fundo ultra escuro minimalista */
+    --surface-card: #111115;     /* Superfície dos cards */
+    --surface-glass: rgba(17, 17, 21, 0.75); /* Efeito vidro */
+    --text-main: #f8fafc;        /* Texto principal */
+    --text-muted: #94a3b8;       /* Texto secundário/descrições */
+    --gold-neon: #e5c158;        /* Ouro champagne tecnológico */
+    --gold-glow: rgba(229, 193, 88, 0.12);
+    --border-subtle: #1e1e24;    /* Bordas finas modernas */
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
+/* Reset Avançado */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-dark);
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-primary);
     display: flex;
     justify-content: center;
-    padding: 0 20px;
+    min-height: 100vh;
+    color: var(--text-main);
+    overflow-x: hidden;
 }
 
-main {
+/* Container que simula App Nativo no Celular */
+.app-container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 440px;
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    padding-bottom: 60px;
+    gap: 24px;
+    padding: 16px;
+    padding-bottom: 50px;
 }
 
-/* Cabeçalho ajustado */
+/* Header Glassmorphism */
 .cabecalho {
+    background-color: var(--surface-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    padding: 20px 16px;
     text-align: center;
-    padding: 30px 0;
-    border-bottom: 1px solid var(--border-color);
-    background-color: var(--bg-color);
+    position: sticky;
+    top: 10px;
+    z-index: 1000;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+.badge-premium {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold-neon);
+    background: var(--gold-glow);
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(229, 193, 88, 0.3);
+    display: inline-block;
+    margin-bottom: 6px;
 }
 
 .cabecalho h1 {
-    font-size: 2.2rem;
-    margin-bottom: 15px;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    background: linear-gradient(135deg, #fff 30%, var(--gold-neon));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
+.subtitulo {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    letter-spacing: 6px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    margin-bottom: 18px;
+}
+
+/* Navegação em Pílulas Modernas */
 .menu-principal ul {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 6px;
     list-style: none;
     flex-wrap: wrap;
 }
 
 .menu-principal a {
-    color: var(--text-secondary);
+    color: var(--text-muted);
     text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: color 0.3s;
-    padding: 5px 10px;
-    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.menu-principal a:hover {
-    color: var(--text-primary);
-    background-color: var(--card-bg);
+.menu-principal a:hover, .menu-principal a:active {
+    color: var(--bg-dark);
+    background-color: var(--gold-neon);
+    box-shadow: 0 4px 12px var(--gold-glow);
 }
 
-.apresentacao, .sobre {
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    padding: 30px;
-    border: 1px solid var(--border-color);
+/* Estilização Avançada dos Cards */
+.card-mobile {
+    background-color: var(--surface-card);
+    border-radius: 24px;
+    padding: 26px;
+    border: 1px solid var(--border-subtle);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.apresentacao h2, .sobre h2, .localizacao h2 {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
+/* Section Tags Tecnológicas */
+.section-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--gold-neon);
+    letter-spacing: 1.5px;
+    display: block;
+    margin-bottom: 8px;
+    text-transform: uppercase;
 }
 
-.apresentacao p, .sobre p {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    font-size: 1.1rem;
-}
-
-.conteudo-principal {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-}
-
-@media (max-width: 768px) {
-    .conteudo-principal {
-        grid-template-columns: 1fr;
-    }
-}
-
-.info-lateral, .formulario, .localizacao {
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    padding: 25px;
-    border: 1px solid var(--border-color);
-}
-
-.card-precos h2, .formulario h2, .localizacao h2 {
-    margin-bottom: 20px;
+.card-mobile h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
     font-size: 1.5rem;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 10px;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
 }
 
-.linha {
+.card-mobile p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Card Hero Especial com Efeito de Luz Interna */
+.hero-section {
+    border: 1px solid rgba(229, 193, 88, 0.2);
+}
+.glow-effect {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: var(--gold-neon);
+    filter: blur(80px);
+    opacity: 0.35;
+    pointer-events: none;
+}
+.btn-cta-scroll {
+    display: inline-block;
+    margin-top: 18px;
+    color: var(--gold-neon);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+}
+.btn-cta-scroll:hover {
+    transform: translateX(4px);
+}
+
+/* Lista de Serviços Estilo Dashboard */
+.linha-servico {
     display: flex;
     justify-content: space-between;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-subtle);
 }
 
-.linha:last-child {
+.linha-servico:last-child {
     border-bottom: none;
 }
 
-.titulo { font-weight: 600; }
-.preço { color: var(--accent-color); font-weight: bold; }
+.servico-detalhe {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
 
-form { display: flex; flex-direction: column; gap: 15px; }
-.input-group { display: flex; flex-direction: column; gap: 6px; width: 100%; }
-.input-group-row { display: flex; gap: 15px; }
+.servico-nome {
+    font-weight: 600;
+    font-size: 1rem;
+}
 
-label { font-size: 0.9rem; color: var(--text-secondary); }
+.servico-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.preço {
+    color: var(--gold-neon);
+    font-weight: 700;
+    font-size: 1.1rem;
+    background: var(--gold-glow);
+    padding: 4px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(229, 193, 88, 0.2);
+}
+
+/* Inputs Premium Inteligentes */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-group-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
 
 input, select {
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 12px;
-    border-radius: 6px;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+    padding: 15px;
+    border-radius: 12px;
     outline: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-input:focus, select:focus { border-color: var(--accent-color); }
+input:focus, select:focus {
+    border-color: var(--gold-neon);
+    box-shadow: 0 0 0 4px var(--gold-glow);
+}
 
+/* Botão de Agendamento Moderno com Micro-interação */
 .btn-agendar {
-    background-color: var(--accent-color);
-    color: #fff;
+    background: linear-gradient(135deg, var(--gold-neon), #bfa143);
+    color: #000;
     border: none;
-    padding: 15px;
-    border-radius: 6px;
-    font-weight: bold;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s;
+    margin-top: 6px;
+    box-shadow: 0 6px 20px rgba(229, 193, 88, 0.2);
+    transition: all 0.2s ease;
 }
 
-.btn-agendar:hover { background-color: var(--accent-hover); }
+.btn-agendar:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 10px rgba(229, 193, 88, 0.1);
+}
 
+/* Lista de Agendamentos Recentes */
 .lista-agendamentos {
-    margin-top: 25px;
-    border-top: 1px solid var(--border-color);
+    margin-top: 28px;
+    border-top: 1px solid var(--border-subtle);
     padding-top: 20px;
 }
 
-ul#ulAgendamentos { list-style: none; }
-ul#ulAgendamentos li {
-    background-color: var(--bg-color);
-    padding: 12px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    border: 1px solid var(--border-color);
+.lista-agendamentos h3 {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.agendamento-data { font-weight: bold; color: var(--accent-color); }
-.localizacao .redes-sociais a { color: var(--text-secondary); text-decoration: none; }
-.localizacao .redes-sociais a:hover { color: var(--accent-color); }
+ul#ulAgendamentos li {
+    background-color: var(--bg-dark);
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-subtle);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
 
+.agendamento-data {
+    font-weight: 700;
+    color: var(--gold-neon);
+}
 
-/* =========================================
-   ESTILOS ESPECÍFICOS DA GALERIA
-========================================= */
+/* Redes Sociais e Mapas */
+.redes-sociais-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.btn-social {
+    display: block;
+    text-align: center;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-social:hover, .btn-social:active {
+    border-color: var(--gold-neon);
+    color: var(--gold-neon);
+}
+
+.mapa-wrapper {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+}
+
+/* Estilos Adicionais da Galeria Compartilhada */
 .galeria-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
     margin-top: 15px;
 }
-
 .foto-item {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
 }
-
 .foto-item img {
     width: 100%;
     height: 180px;
     object-fit: cover;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    transition: 0.3s;
+    border-radius: 16px;
+    border: 1px solid var(--border-subtle);
 }
-
 .foto-item p {
     text-align: center;
     font-size: 0.8rem;
-    color: var(--accent-color);
-    font-weight: 500;
+    color: var(--gold-neon);
+    font-weight: 600;
 }
-
 .btn-voltar {
     display: block;
     text-align: center;
     background-color: transparent;
-    color: var(--text-primary);
+    color: var(--text-main);
     text-decoration: none;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
     margin-top: 20px;
     font-weight: 600;
-    transition: background-color 0.2s, border-color 0.2s;
-}
-
-.btn-voltar:hover {
-    background-color: var(--card-bg);
-    border-color: var(--accent-color);
+    font-size: 0.9rem;
 }
