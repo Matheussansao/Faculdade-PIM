@@ -183,3 +183,55 @@ ul#ulAgendamentos li {
 .agendamento-data { font-weight: bold; color: var(--accent-color); }
 .localizacao .redes-sociais a { color: var(--text-secondary); text-decoration: none; }
 .localizacao .redes-sociais a:hover { color: var(--accent-color); }
+
+
+/* =========================================
+   ESTILOS ESPECÍFICOS DA GALERIA
+========================================= */
+.galeria-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.foto-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.foto-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: 0.3s;
+}
+
+.foto-item p {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+.btn-voltar {
+    display: block;
+    text-align: center;
+    background-color: transparent;
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin-top: 20px;
+    font-weight: 600;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-voltar:hover {
+    background-color: var(--card-bg);
+    border-color: var(--accent-color);
+}
