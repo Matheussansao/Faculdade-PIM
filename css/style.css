@@ -1,21 +1,15 @@
-/* ==========================================================================
-   DESIGN SYSTEM PREMIUM - BARBER SHOP v2.1
-   Correção: Ajuste de proporção para não cortar rostos (object-fit)
-========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-    --bg-dark: #060608;          /* Fundo ultra escuro minimalista */
-    --surface-card: #111115;     /* Superfície dos cards */
-    --surface-glass: rgba(17, 17, 21, 0.75); /* Efeito vidro */
-    --text-main: #f8fafc;        /* Texto principal */
-    --text-muted: #94a3b8;       /* Texto secundário/descrições */
-    --gold-neon: #e5c158;        /* Ouro champagne tecnológico */
+    --bg-dark: #060608;          
+    --surface-card: #111115;     
+    --surface-glass: rgba(17, 17, 21, 0.75); 
+    --text-main: #f8fafc;        
+    --text-muted: #94a3b8;       
+    --gold-neon: #e5c158;        
     --gold-glow: rgba(229, 193, 88, 0.12);
-    --border-subtle: #1e1e24;    /* Bordas finas modernas */
+    --border-subtle: #1e1e24;    
     
-    /* Variáveis conceituais */
     --font-heading: 'Cinzel', serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
     --radius-full: 24px;
@@ -23,7 +17,6 @@
     --shadow-premium: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Reset Avançado */
 * {
     margin: 0;
     padding: 0;
@@ -45,7 +38,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Container que simula App Nativo no Celular */
 .app-container {
     width: 100%;
     max-width: 440px;
@@ -56,7 +48,6 @@ body {
     padding-bottom: 50px;
 }
 
-/* Header Glassmorphism */
 .cabecalho {
     background-color: var(--surface-glass);
     backdrop-filter: blur(12px);
@@ -80,7 +71,7 @@ body {
 .logo-img {
     width: 70px;
     height: 70px;
-    object-fit: cover; /* Logo mantém cover para manter formato redondo */
+    object-fit: cover; 
     object-position: center;
     border-radius: 50%;
     border: 2px solid var(--gold-neon);
@@ -120,7 +111,6 @@ body {
     margin-bottom: 18px;
 }
 
-/* Navegação em Pílulas Modernas */
 .menu-principal ul {
     display: flex;
     justify-content: center;
@@ -147,7 +137,6 @@ body {
     box-shadow: 0 4px 12px var(--gold-glow);
 }
 
-/* Estilização Avançada dos Cards */
 .card-mobile {
     background-color: var(--surface-card);
     border-radius: var(--radius-full);
@@ -156,9 +145,9 @@ body {
     position: relative;
     overflow: hidden;
     box-shadow: var(--shadow-premium);
+    scroll-margin-top: 260px; /* <--- ISSO EVITA QUE O MENU CUBRA A SEÇÃO */
 }
 
-/* Section Tags Tecnológicas */
 .section-tag {
     font-size: 0.65rem;
     font-weight: 700;
@@ -183,7 +172,6 @@ body {
     font-size: 0.95rem;
 }
 
-/* Card Hero Especial com Efeito de Luz Interna */
 .hero-section {
     border: 1px solid rgba(229, 193, 88, 0.2);
 }
@@ -211,9 +199,6 @@ body {
     transform: translateX(4px);
 }
 
-/* ==========================================================================
-   SEÇÃO SOBRE - CORREÇÃO IMAGEM DO BARBEIRO
-========================================================================== */
 .sobre-imagens {
     margin-top: 24px;
     display: flex;
@@ -222,18 +207,17 @@ body {
 }
 
 .img-destaque-wrapper {
-    background-color: #0c0c0e; /* Cor ligeiramente diferente para o fundo da foto */
+    background-color: #0c0c0e; 
     border-radius: 16px;
     border: 1px solid var(--border-subtle);
-    overflow: hidden; /* Garante que o contain respeita as bordas */
+    overflow: hidden; 
 }
 
-/* CORREÇÃO AQUI: object-fit: contain garante que o rosto não é cortado */
 .img-destaque {
     width: 100%;
-    height: 300px; /* Aumentei um pouco a altura para dar mais espaço */
-    object-fit: contain; /* Mostra a imagem toda sem cortar */
-    object-position: center; /* Centraliza a imagem no espaço */
+    height: 300px; 
+    object-fit: contain; 
+    object-position: center; 
 }
 
 .sobre-grid {
@@ -245,13 +229,12 @@ body {
 .sobre-grid img {
     width: 100%;
     height: 130px;
-    object-fit: cover; /* Mantém cover para o salão, pois não há rostos críticos */
+    object-fit: cover; 
     object-position: center;
     border-radius: var(--radius-md);
     border: 1px solid var(--border-subtle);
 }
 
-/* Lista de Serviços Estilo Dashboard */
 .linha-servico {
     display: flex;
     justify-content: space-between;
@@ -290,7 +273,6 @@ body {
     border: 1px solid rgba(229, 193, 88, 0.2);
 }
 
-/* Inputs Premium Inteligentes */
 form {
     display: flex;
     flex-direction: column;
@@ -333,7 +315,6 @@ input:focus, select:focus {
     box-shadow: 0 0 0 4px var(--gold-glow);
 }
 
-/* Botão de Agendamento Moderno com Micro-interação */
 .btn-agendar {
     background: linear-gradient(135deg, var(--gold-neon), #bfa143);
     color: #000;
@@ -353,7 +334,6 @@ input:focus, select:focus {
     box-shadow: 0 2px 10px rgba(229, 193, 88, 0.1);
 }
 
-/* Lista de Agendamentos Recentes */
 .lista-agendamentos {
     margin-top: 28px;
     border-top: 1px solid var(--border-subtle);
@@ -383,7 +363,6 @@ ul#ulAgendamentos li {
     color: var(--gold-neon);
 }
 
-/* Redes Sociais e Mapas */
 .redes-sociais-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -416,32 +395,35 @@ ul#ulAgendamentos li {
     border: 1px solid var(--border-subtle);
 }
 
-/* Estilos Adicionais da Galeria Compartilhada (galeria.html) */
 .galeria-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
     margin-top: 15px;
 }
+
 .foto-item {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
+
 .foto-item img {
     width: 100%;
     height: 180px;
-    object-fit: cover; /* Manter cover na galeria de cortes funciona bem */
+    object-fit: cover; 
     object-position: center;
     border-radius: 16px;
     border: 1px solid var(--border-subtle);
 }
+
 .foto-item p {
     text-align: center;
     font-size: 0.8rem;
     color: var(--gold-neon);
     font-weight: 600;
 }
+
 .btn-voltar {
     display: block;
     text-align: center;
