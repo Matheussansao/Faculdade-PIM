@@ -1,8 +1,3 @@
-/* ==========================================================================
-   ESTILOS EXCLUSIVOS DO PAINEL ADMINISTRATIVO v1.1
-   Incluso: Estilização de Tabelas de Agendamento e Badges de Status
-========================================================================== */
-
 .admin-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -44,7 +39,6 @@
     color: #fff;
 }
 
-/* Cards de KPIs (Indicadores) */
 .kpi-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -80,7 +74,6 @@
     color: var(--gold-neon);
 }
 
-/* Gráficos */
 .charts-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -107,7 +100,6 @@
     color: var(--text-main);
 }
 
-/* Inteligência Artificial / Dica */
 .ia-insight {
     background: linear-gradient(135deg, rgba(229, 193, 88, 0.1), transparent);
     border: 1px solid var(--gold-neon);
@@ -125,9 +117,6 @@
     line-height: 1.5;
 }
 
-/* ==========================================================================
-   NOVO: BOX DE GERENCIAMENTO DA AGENDA E TABELAS
-========================================================================== */
 .management-box {
     background-color: var(--surface-card);
     padding: 24px;
@@ -162,7 +151,7 @@
 
 .table-wrapper {
     width: 100%;
-    overflow-x: auto; /* Permite rolagem no mobile de forma suave */
+    overflow-x: auto;
 }
 
 .admin-table {
@@ -197,7 +186,6 @@
     color: var(--gold-neon);
 }
 
-/* Status Badges */
 .status-badge {
     font-size: 0.75rem;
     font-weight: 700;
@@ -221,7 +209,6 @@
     color: #eab308;
 }
 
-/* Botões de Ação na Tabela */
 .btn-action {
     background-color: var(--bg-dark);
     border: 1px solid var(--border-subtle);
@@ -237,4 +224,70 @@
 .btn-action:hover {
     border-color: var(--gold-neon);
     color: var(--gold-neon);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background-color: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 12px;
+}
+
+.modal-header h2 {
+    font-size: 1.2rem;
+    color: var(--gold-neon);
+    font-family: var(--font-heading);
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.btn-close:hover {
+    color: #ef4444;
+}
+
+.modal-body p {
+    margin-bottom: 14px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.modal-body strong {
+    color: var(--text-main);
+    display: inline-block;
+    width: 80px;
 }
