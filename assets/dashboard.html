@@ -61,14 +61,64 @@
             </div>
         </div>
 
+        <div class="management-box">
+            <div class="management-header">
+                <h2>Agenda de Clientes</h2>
+                <span class="agenda-count">4 Atendimentos Restantes</span>
+            </div>
+            
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Horário</th>
+                            <th>Cliente</th>
+                            <th>Serviço</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-time">09:30</td>
+                            <td>Carlos Eduardo</td>
+                            <td>Corte Comum</td>
+                            <td><span class="status-badge status-done">Concluído</span></td>
+                            <td><button class="btn-action">Detalhes</button></td>
+                        </tr>
+                        <tr>
+                            <td class="table-time">10:15</td>
+                            <td>Matheus Silva</td>
+                            <td>Corte + Barba</td>
+                            <td><span class="status-badge status-confirmed">Confirmado</span></td>
+                            <td><button class="btn-action">Detalhes</button></td>
+                        </tr>
+                        <tr>
+                            <td class="table-time">11:00</td>
+                            <td>Arthur Henrique</td>
+                            <td>Nevou / Platinado</td>
+                            <td><span class="status-badge status-confirmed">Confirmado</span></td>
+                            <td><button class="btn-action">Detalhes</button></td>
+                        </tr>
+                        <tr>
+                            <td class="table-time">14:00</td>
+                            <td>Lucas Ferreira</td>
+                            <td>Barba Completa</td>
+                            <td><span class="status-badge status-pending">Pendente</span></td>
+                            <td><button class="btn-action">Detalhes</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // Configurações Globais do Chart.js para combinar com o Dark Mode
         Chart.defaults.color = '#94a3b8';
         Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
 
-        // 1. Gráfico de Barras (Fluxo da Semana)
+        // 1. Gráfico de Barras
         const ctxFluxo = document.getElementById('graficoFluxo').getContext('2d');
         new Chart(ctxFluxo, {
             type: 'bar',
@@ -91,7 +141,7 @@
             }
         });
 
-        // 2. Gráfico de Rosca (Mix de Serviços)
+        // 2. Gráfico de Rosca
         const ctxServicos = document.getElementById('graficoServicos').getContext('2d');
         new Chart(ctxServicos, {
             type: 'doughnut',

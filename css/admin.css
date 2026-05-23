@@ -1,5 +1,6 @@
 /* ==========================================================================
-   ESTILOS EXCLUSIVOS DO PAINEL ADMINISTRATIVO
+   ESTILOS EXCLUSIVOS DO PAINEL ADMINISTRATIVO v1.1
+   Incluso: Estilização de Tabelas de Agendamento e Badges de Status
 ========================================================================== */
 
 .admin-container {
@@ -122,4 +123,118 @@
     font-size: 0.9rem;
     color: var(--text-main);
     line-height: 1.5;
+}
+
+/* ==========================================================================
+   NOVO: BOX DE GERENCIAMENTO DA AGENDA E TABELAS
+========================================================================== */
+.management-box {
+    background-color: var(--surface-card);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid var(--border-subtle);
+    margin-bottom: 30px;
+}
+
+.management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+.management-header h2 {
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+.agenda-count {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gold-neon);
+    background-color: var(--gold-glow);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(229, 193, 88, 0.2);
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Permite rolagem no mobile de forma suave */
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.admin-table th {
+    padding: 14px 16px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.admin-table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.9rem;
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
+.admin-table tr:last-child td {
+    border-bottom: none;
+}
+
+.table-time {
+    font-weight: 700;
+    color: var(--gold-neon);
+}
+
+/* Status Badges */
+.status-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.status-done {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+}
+
+.status-confirmed {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.status-pending {
+    background-color: rgba(234, 179, 8, 0.1);
+    color: #eab308;
+}
+
+/* Botões de Ação na Tabela */
+.btn-action {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-action:hover {
+    border-color: var(--gold-neon);
+    color: var(--gold-neon);
 }
