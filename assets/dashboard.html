@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Gestão | Ruy Costa</title>
+    
+    <link rel="stylesheet" href="../css/admin.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <link rel="shortcut icon" href="assets/img/favicon-32x32.png" type="image/x-icon">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="admin-container">
+        
+        <header class="admin-header">
+            <div>
+                <h1>Painel de Gestão</h1>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 5px;">Visão Geral do Negócio</p>
+            </div>
+            <a href="./login.html" class="btn-sair">Sair do Sistema</a>
+        </header>
+
+        <div class="ia-insight">
+            <span style="font-size: 24px;">🤖</span>
+            <p><strong>Insight Operacional:</strong> Os dados indicam um pico de procura às sextas e sábados. Sugere-se a criação de um "Combo Promocional" para as terças-feiras para equilibrar a agenda e aumentar a receita semanal em até 15%.</p>
+        </div>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <span class="kpi-titulo">Agendamentos Hoje</span>
+                <span class="kpi-valor">14</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-titulo">Faturamento Est.</span>
+                <span class="kpi-valor kpi-destaque">R$ 840,00</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-titulo">Serviço Mais Pedido</span>
+                <span class="kpi-valor" style="font-size: 1.3rem; margin-top: 10px;">Corte + Barba</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-titulo">Ticket Médio</span>
+                <span class="kpi-valor kpi-destaque">R$ 60,00</span>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-box">
+                <h2>Fluxo de Clientes na Semana</h2>
+                <canvas id="graficoFluxo"></canvas>
+            </div>
+            
+            <div class="chart-box">
+                <h2>Distribuição de Serviços</h2>
+                <canvas id="graficoServicos"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Configurações Globais do Chart.js para combinar com o Dark Mode
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+        // 1. Gráfico de Barras (Fluxo da Semana)
+        const ctxFluxo = document.getElementById('graficoFluxo').getContext('2d');
+        new Chart(ctxFluxo, {
+            type: 'bar',
+            data: {
+                labels: ['Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                datasets: [{
+                    label: 'Agendamentos',
+                    data: [8, 12, 15, 25, 32],
+                    backgroundColor: '#e5c158',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: '#1e1e24' }, beginAtZero: true },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 2. Gráfico de Rosca (Mix de Serviços)
+        const ctxServicos = document.getElementById('graficoServicos').getContext('2d');
+        new Chart(ctxServicos, {
+            type: 'doughnut',
+            data: {
+                labels: ['Corte Comum', 'Corte + Barba', 'Nevou', 'Outros'],
+                datasets: [{
+                    data: [45, 30, 15, 10],
+                    backgroundColor: ['#e5c158', '#bfa143', '#f8fafc', '#1e1e24'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                cutout: '70%'
+            }
+        });
+    </script>
+</body>
+</html>
