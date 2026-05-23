@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Gestão | Ruy Costa</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <link rel="icon" href="./img/logo02.jpeg" type="image/jpeg">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <main class="app-container">
+        
+        <header class="cabecalho" style="margin-bottom: 10px;">
+            <div class="logo-area">
+                <img src="./img/logo02.jpeg" alt="Logo Ruy Costa" class="logo-img">
+                <span class="badge-premium">ADMINISTRATIVO</span>
+                <h1 style="font-size: 1.5rem;">Painel de Gestão</h1>
+            </div>
+            <nav class="menu-principal" style="margin-top: 10px;">
+                <ul>
+                    <li><a href="../index.html" style="color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2);">Sair do Sistema</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="ia-insight-mobile">
+            <span style="font-size: 20px;">🤖</span>
+            <p><strong>Dica de Negócio:</strong> Pico de procura sexta/sábado. Crie um "Combo" para as terças para faturar +15%.</p>
+        </div>
+
+        <div class="kpi-grid-mobile">
+            <div class="kpi-card-mobile">
+                <span class="kpi-titulo-mobile">Hoje</span>
+                <span class="kpi-valor-mobile">14</span>
+            </div>
+            <div class="kpi-card-mobile">
+                <span class="kpi-titulo-mobile">Receita Est.</span>
+                <span class="kpi-valor-mobile kpi-destaque">R$ 840</span>
+            </div>
+            <div class="kpi-card-mobile" style="grid-column: span 2;">
+                <span class="kpi-titulo-mobile">Serviço Mais Rentável</span>
+                <span class="kpi-valor-mobile" style="font-size: 1.1rem; color: var(--gold-neon);">Corte + Barba</span>
+            </div>
+        </div>
+
+        <section class="card-mobile">
+            <span class="section-tag">Controle de Horários</span>
+            <h2>Agenda de Hoje</h2>
+            
+            <div id="listaAdminAgendamentos" class="admin-agenda-lista">
+                </div>
+        </section>
+
+        <section class="card-mobile">
+            <span class="section-tag">Demanda Semanal</span>
+            <h2>Fluxo de Clientes</h2>
+            <canvas id="graficoFluxo" style="margin-top: 20px;"></canvas>
+        </section>
+
+        <section class="card-mobile">
+            <span class="section-tag">Inteligência de Vendas</span>
+            <h2>Mix de Serviços</h2>
+            <canvas id="graficoServicos" style="margin-top: 20px;"></canvas>
+        </section>
+
+    </main>
+
+    <div id="modalDetalhes" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Ficha do Cliente</h2>
+                <button class="btn-close" onclick="fecharModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Cliente:</strong> <span id="modalCliente">--</span></p>
+                <p><strong>Serviço:</strong> <span id="modalServico">--</span></p>
+                <p><strong>Horário:</strong> <span id="modalHorario" style="color: var(--gold-neon); font-weight: 700;">--</span></p>
+                <p><strong>Status:</strong> <span id="modalStatus">--</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function carregarAgendaAdmin() {
+            const lista = document.getElementById('listaAdminAgendamentos');
+            let agendamentos = JSON.parse(localStorage.getItem('ruy_agendamentos')) || [];
+
+            if(agendamentos.length === 0) {
+                agendamentos = [
+                    { nome: 'Carlos Eduardo', servico: 'Corte Comum', data: '2026-05-25', hora: '09:30', status: 'Concluído' },
+                    { nome: 'Arthur Henrique', servico: 'Nevou / Platinado', data: '2026-05-25', hora: '11:00', status: 'Confirmado' },
+                    { nome: 'Lucas Ferreira', servico: 'Barba Completa', data: '2026-05-25', hora: '14:00', status: 'Pendente' }
+                ];
+            }
+
+            lista.innerHTML = ''; 
+
+            agendamentos.forEach(ag => {
+                let badgeClass = 'status-pending';
+                if(ag.status === 'Confirmado') badgeClass = 'status-confirmed';
+                if(ag.status === 'Concluído') badgeClass = 'status-done';
+
+                const item = document.createElement('div');
+                item.className = 'admin-agenda-item';
+                item.onclick = () => abrirModal(ag.nome, ag.servico, ag.hora, ag.status);
+                
+                item.innerHTML = `
+                    <div class="admin-agenda-info">
+                        <span class="admin-agenda-time">${ag.hora}</span>
+                        <span class="admin-agenda-name">${ag.nome}</span>
+                        <span class="admin-agenda-service">${ag.servico}</span>
+                    </div>
+                    <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; justify-content: center;">
+                        <span class="status-badge ${badgeClass}">${ag.status}</span>
+                        <span style="font-size: 0.7rem; color: var(--text-muted); margin-top: 10px;">Ver mais ➔</span>
+                    </div>
+                `;
+                lista.appendChild(item);
+            });
+        }
+
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+        const ctxFluxo = document.getElementById('graficoFluxo').getContext('2d');
+        new Chart(ctxFluxo, {
+            type: 'bar',
+            data: {
+                labels: ['Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                datasets: [{ data: [8, 12, 15, 25, 32], backgroundColor: '#e5c158', borderRadius: 4 }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#1e1e24' } }, x: { grid: { display: false } } } }
+        });
+
+        const ctxServicos = document.getElementById('graficoServicos').getContext('2d');
+        new Chart(ctxServicos, {
+            type: 'doughnut',
+            data: {
+                labels: ['Comum', 'Combo', 'Nevou', 'Outros'],
+                datasets: [{ data: [45, 30, 15, 10], backgroundColor: ['#e5c158', '#bfa143', '#f8fafc', '#1e1e24'], borderWidth: 0 }]
+            },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } }, cutout: '75%' }
+        });
+
+        function abrirModal(cliente, servico, horario, status) {
+            document.getElementById('modalCliente').innerText = cliente;
+            document.getElementById('modalServico').innerText = servico;
+            document.getElementById('modalHorario').innerText = horario;
+            document.getElementById('modalStatus').innerText = status;
+            document.getElementById('modalDetalhes').style.display = 'flex';
+        }
+
+        function fecharModal() { document.getElementById('modalDetalhes').style.display = 'none'; }
+
+        window.addEventListener('DOMContentLoaded', carregarAgendaAdmin);
+    </script>
+</body>
+</html>

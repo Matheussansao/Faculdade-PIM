@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ruy Costa Barber Shop</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="shortcut icon" href="assets/img/favicon-32x32.png" type="image/x-icon">
+    <link class="shortcut icon" href="assets/img/favicon-32x32.png" type="image/x-icon">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
@@ -47,7 +47,10 @@
         <p>Sob o comando de Ruy Costa, o espaço foi desenhado para quem não procura apenas um corte de cabelo, mas sim um momento de autocuidado premium, regado a café de qualidade e resenha fina.</p>
         
         <div class="sobre-imagens">
-            <img src="assets/img/barbeiro.jpeg" alt="Ruy Costa trabalhando" class="img-destaque">
+            <div class="img-destaque-wrapper">
+                <img src="assets/img/barbeiro.jpeg" alt="Ruy Costa trabalhando" class="img-destaque">
+            </div>
+            
             <div class="sobre-grid">
                 <img src="assets/img/salao.jpeg" alt="Interior da Barbearia">
                 <img src="assets/img/salao02.jpeg" alt="Estrutura de atendimento">
@@ -136,11 +139,26 @@
         </div>
     </section>
 
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    
+    <footer class="rodape">
+        <p>© 2026 Ruy Costa Barber Shop. Todos os direitos reservados.</p>
+        <a href="./assets/login.html" class="btn-restrito">Área Restrita</a>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script> <script src="./js/script.js"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+
+    <script src="./js/script.js"></script>
   </main>
+
+  <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+          <div class="vw-plugin-top-wrapper"></div>
+      </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
 </body>
 </html>

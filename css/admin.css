@@ -1,0 +1,149 @@
+.kpi-grid-mobile {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.kpi-card-mobile {
+    background-color: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.kpi-titulo-mobile {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+}
+
+.kpi-valor-mobile {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.kpi-destaque {
+    color: var(--gold-neon);
+}
+
+.ia-insight-mobile {
+    background: linear-gradient(135deg, rgba(229, 193, 88, 0.1), transparent);
+    border: 1px solid var(--gold-neon);
+    padding: 16px;
+    border-radius: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.ia-insight-mobile p {
+    font-size: 0.85rem;
+    color: var(--text-main);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.admin-agenda-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.admin-agenda-item {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.admin-agenda-item:active {
+    border-color: var(--gold-neon);
+}
+
+.admin-agenda-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.admin-agenda-time {
+    color: var(--gold-neon);
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.admin-agenda-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.admin-agenda-service {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.status-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.status-done { background-color: rgba(34, 197, 94, 0.1); color: #22c55e; }
+.status-confirmed { background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+.status-pending { background-color: rgba(234, 179, 8, 0.1); color: #eab308; }
+
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 2000; padding: 16px;
+}
+
+.modal-content {
+    background-color: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px; padding: 24px;
+    width: 100%; max-width: 380px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+}
+
+.modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 12px;
+}
+
+.modal-header h2 { font-size: 1.2rem; color: var(--gold-neon); font-family: var(--font-heading); }
+.btn-close { background: none; border: none; color: var(--text-muted); font-size: 1.8rem; cursor: pointer; line-height: 1; }
+
+.modal-body p { 
+    margin-bottom: 14px; 
+    color: var(--text-main); 
+    font-size: 0.95rem; 
+    display: flex; 
+    justify-content: space-between; 
+    border-bottom: 1px dashed var(--border-subtle); 
+    padding-bottom: 8px;
+}
+.modal-body strong { color: var(--text-muted); font-weight: 500; }
