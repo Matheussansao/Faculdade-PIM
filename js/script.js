@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function agendar(event) {
+async function agendar(event) {
     event.preventDefault();
 
     const nome = document.getElementById('nome').value.trim();
@@ -32,26 +32,38 @@ function agendar(event) {
     btnAgendar.disabled = true;
     btnAgendar.style.opacity = "0.7";
 
-    setTimeout(() => {
-        let agendamentos = JSON.parse(localStorage.getItem('ruy_agendamentos')) || [];
+    // Prepara os dados para enviar para o MySQL
+    const novoAgendamento = {
+        nome: nome,
+        servico: servico,
+        data: data,
+        hora: hora,
+        status: 'Confirmado'
+    };
 
-        agendamentos.push({
-            nome: nome,
-            servico: servico,
-            data: data,
-            hora: hora,
-            status: 'Confirmado'
+    try {
+        // Envia para a API C#
+        const resposta = await fetch('http://localhost:5098/api/Agendamentos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(novoAgendamento)
         });
 
-        localStorage.setItem('ruy_agendamentos', JSON.stringify(agendamentos));
-
-        alert("✅ Agendamento confirmado com sucesso! O Ruy já está à tua espera.");
-        document.getElementById('formAgendamento').reset();
-        
+        if (resposta.ok) {
+            alert("✅ Agendamento confirmado com sucesso! O Ruy já está à tua espera.");
+            document.getElementById('formAgendamento').reset();
+            escutarAgendamentos(); // Atualiza a lista na página
+        } else {
+            alert("Ops! Ocorreu um problema ao guardar na base de dados.");
+        }
+    } catch (erro) {
+        console.error(erro);
+        alert("Erro de ligação. Verifica se a tua API C# está em execução no Visual Studio!");
+    } finally {
         restaurarBotao(btnAgendar, textoOriginalBtn);
-        escutarAgendamentos(); // Atualiza a lista na tela
-
-    }, 800);
+    }
 }
 
 function restaurarBotao(botao, texto) {
@@ -60,32 +72,43 @@ function restaurarBotao(botao, texto) {
     botao.style.opacity = "1";
 }
 
-function escutarAgendamentos() {
+async function escutarAgendamentos() {
     const listaUI = document.getElementById("ulAgendamentos");
-    let agendamentos = JSON.parse(localStorage.getItem('ruy_agendamentos')) || [];
+    if (!listaUI) return; // Evita erros noutras páginas que não tenham a lista
 
-    listaUI.innerHTML = ""; 
-    
-    if (agendamentos.length === 0) {
-        listaUI.innerHTML = "<li style='text-align:center; color: var(--text-muted);'>Nenhum horário reservado de momento. Seja o primeiro!</li>";
-        return;
-    }
-
-    const ultimosAgendamentos = agendamentos.slice(-5).reverse();
-
-    ultimosAgendamentos.forEach((ag) => {
-        const partesData = ag.data.split("-");
-        const dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
-
-        const li = document.createElement("li");
-        li.innerHTML = `
-            <span class="agendamento-data">📅 ${dataFormatada} às ${ag.hora}</span><br>
-            👤 <span style="color: var(--text-main); font-weight: 500;">${ag.nome}</span> <br>
-            ✂️ <span style="color: var(--text-muted); font-size: 0.85rem;">${ag.servico}</span>
-        `;
+    try {
+        // Pede os dados à API C#
+        const resposta = await fetch('http://localhost:5098/api/Agendamentos');
+        if (!resposta.ok) throw new Error("Erro na API");
         
-        listaUI.appendChild(li);
-    });
+        const agendamentos = await resposta.json();
+
+        listaUI.innerHTML = ""; 
+        
+        if (agendamentos.length === 0) {
+            listaUI.innerHTML = "<li style='text-align:center; color: var(--text-muted);'>Nenhum horário reservado de momento. Seja o primeiro!</li>";
+            return;
+        }
+
+        // Mostra os 5 mais recentes
+        const ultimosAgendamentos = agendamentos.slice(-5).reverse();
+
+        ultimosAgendamentos.forEach((ag) => {
+            const partesData = ag.data.split("-");
+            const dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
+
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <span class="agendamento-data">📅 ${dataFormatada} às ${ag.hora}</span><br>
+                👤 <span style="color: var(--text-main); font-weight: 500;">${ag.nome}</span> <br>
+                ✂️ <span style="color: var(--text-muted); font-size: 0.85rem;">${ag.servico}</span>
+            `;
+            
+            listaUI.appendChild(li);
+        });
+    } catch (erro) {
+        listaUI.innerHTML = "<li style='text-align:center; color: #ef4444;'>Não foi possível comunicar com a base de dados.</li>";
+    }
 }
 
 if(document.getElementById("ulAgendamentos")) {

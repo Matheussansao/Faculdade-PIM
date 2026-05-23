@@ -53,7 +53,7 @@
             <h2>Agenda de Hoje</h2>
             
             <div id="listaAdminAgendamentos" class="admin-agenda-lista">
-                </div>
+            </div>
         </section>
 
         <section class="card-mobile">
@@ -86,42 +86,47 @@
     </div>
 
     <script>
-        function carregarAgendaAdmin() {
+        // Esta função agora puxa os dados reais da tua API
+        async function carregarAgendaAdmin() {
             const lista = document.getElementById('listaAdminAgendamentos');
-            let agendamentos = JSON.parse(localStorage.getItem('ruy_agendamentos')) || [];
 
-            if(agendamentos.length === 0) {
-                agendamentos = [
-                    { nome: 'Carlos Eduardo', servico: 'Corte Comum', data: '2026-05-25', hora: '09:30', status: 'Concluído' },
-                    { nome: 'Arthur Henrique', servico: 'Nevou / Platinado', data: '2026-05-25', hora: '11:00', status: 'Confirmado' },
-                    { nome: 'Lucas Ferreira', servico: 'Barba Completa', data: '2026-05-25', hora: '14:00', status: 'Pendente' }
-                ];
+            try {
+                // Comunicação com o C#
+                const resposta = await fetch('http://localhost:5098/api/Agendamentos');
+                let agendamentos = await resposta.json();
+
+                lista.innerHTML = ''; 
+
+                if(agendamentos.length === 0) {
+                    lista.innerHTML = '<p style="text-align: center; color: #94a3b8; padding: 20px;">Nenhum agendamento no sistema.</p>';
+                    return;
+                }
+
+                agendamentos.reverse().forEach(ag => {
+                    let badgeClass = 'status-pending';
+                    if(ag.status === 'Confirmado') badgeClass = 'status-confirmed';
+                    if(ag.status === 'Concluído') badgeClass = 'status-done';
+
+                    const item = document.createElement('div');
+                    item.className = 'admin-agenda-item';
+                    item.onclick = () => abrirModal(ag.nome, ag.servico, ag.hora, ag.status);
+                    
+                    item.innerHTML = `
+                        <div class="admin-agenda-info">
+                            <span class="admin-agenda-time">${ag.hora}</span>
+                            <span class="admin-agenda-name">${ag.nome}</span>
+                            <span class="admin-agenda-service">${ag.servico}</span>
+                        </div>
+                        <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; justify-content: center;">
+                            <span class="status-badge ${badgeClass}">${ag.status}</span>
+                            <span style="font-size: 0.7rem; color: var(--text-muted); margin-top: 10px;">Ver mais ➔</span>
+                        </div>
+                    `;
+                    lista.appendChild(item);
+                });
+            } catch (erro) {
+                lista.innerHTML = '<p style="text-align: center; color: #ef4444; padding: 20px;">Erro de servidor. A API está desligada.</p>';
             }
-
-            lista.innerHTML = ''; 
-
-            agendamentos.forEach(ag => {
-                let badgeClass = 'status-pending';
-                if(ag.status === 'Confirmado') badgeClass = 'status-confirmed';
-                if(ag.status === 'Concluído') badgeClass = 'status-done';
-
-                const item = document.createElement('div');
-                item.className = 'admin-agenda-item';
-                item.onclick = () => abrirModal(ag.nome, ag.servico, ag.hora, ag.status);
-                
-                item.innerHTML = `
-                    <div class="admin-agenda-info">
-                        <span class="admin-agenda-time">${ag.hora}</span>
-                        <span class="admin-agenda-name">${ag.nome}</span>
-                        <span class="admin-agenda-service">${ag.servico}</span>
-                    </div>
-                    <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; justify-content: center;">
-                        <span class="status-badge ${badgeClass}">${ag.status}</span>
-                        <span style="font-size: 0.7rem; color: var(--text-muted); margin-top: 10px;">Ver mais ➔</span>
-                    </div>
-                `;
-                lista.appendChild(item);
-            });
         }
 
         Chart.defaults.color = '#94a3b8';
