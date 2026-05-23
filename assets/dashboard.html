@@ -187,6 +187,40 @@
         function fecharModal() {
             document.getElementById('modalDetalhes').style.display = 'none';
         }
+
+        function carregarTabelaAdmin() {
+            const tbody = document.querySelector('.admin-table tbody');
+            let agendamentos = JSON.parse(localStorage.getItem('ruy_agendamentos')) || [];
+
+            // Se não tiver nada agendado, injeta dados falsos só para a apresentação não ficar vazia
+            if(agendamentos.length === 0) {
+                agendamentos = [
+                    { nome: 'Carlos Eduardo', servico: 'Corte Comum', data: '2026-05-25', hora: '09:30', status: 'Concluído' },
+                    { nome: 'Arthur Henrique', servico: 'Nevou / Platinado', data: '2026-05-25', hora: '11:00', status: 'Confirmado' }
+                ];
+            }
+
+            tbody.innerHTML = '';
+
+            agendamentos.forEach(ag => {
+                let badgeClass = 'status-pending';
+                if(ag.status === 'Confirmado') badgeClass = 'status-confirmed';
+                if(ag.status === 'Concluído') badgeClass = 'status-done';
+
+                const linha = document.createElement('tr');
+                linha.innerHTML = `
+                    <td class="table-time">${ag.hora}</td>
+                    <td>${ag.nome}</td>
+                    <td>${ag.servico}</td>
+                    <td><span class="status-badge ${badgeClass}">${ag.status}</span></td>
+                    <td><button class="btn-action" onclick="abrirModal('${ag.nome}', '${ag.servico}', '${ag.hora}', '${ag.status}')">Detalhes</button></td>
+                `;
+                tbody.appendChild(linha);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', carregarTabelaAdmin);
+
     </script>
 </body>
 </html>
