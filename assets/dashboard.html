@@ -5,114 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Gestão | Ruy Costa</title>
     
-    <link rel="stylesheet" href="../css/admin.css">
-    
     <link rel="stylesheet" href="../css/style.css">
-    
+    <link rel="stylesheet" href="../css/admin.css">
+
     <link rel="icon" href="./img/logo02.jpeg" type="image/jpeg">
-    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-    <div class="admin-container">
+    <main class="app-container">
         
-        <header class="admin-header">
-            <div>
-                <h1>Painel de Gestão</h1>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 5px;">Visão Geral do Negócio</p>
+        <header class="cabecalho" style="margin-bottom: 10px;">
+            <div class="logo-area">
+                <img src="./img/logo02.jpeg" alt="Logo Ruy Costa" class="logo-img">
+                <span class="badge-premium">ADMINISTRATIVO</span>
+                <h1 style="font-size: 1.5rem;">Painel de Gestão</h1>
             </div>
-            <a href="./login.html" class="btn-sair">Sair do Sistema</a>
+            <nav class="menu-principal" style="margin-top: 10px;">
+                <ul>
+                    <li><a href="../index.html" style="color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2);">Sair do Sistema</a></li>
+                </ul>
+            </nav>
         </header>
 
-        <div class="ia-insight">
-            <span style="font-size: 24px;">🤖</span>
-            <p><strong>Insight Operacional:</strong> Os dados indicam um pico de procura às sextas e sábados. Sugere-se a criação de um "Combo Promocional" para as terças-feiras para equilibrar a agenda e aumentar a receita semanal em até 15%.</p>
+        <div class="ia-insight-mobile">
+            <span style="font-size: 20px;">🤖</span>
+            <p><strong>Dica de Negócio:</strong> Pico de procura sexta/sábado. Crie um "Combo" para as terças para faturar +15%.</p>
         </div>
 
-        <div class="kpi-grid">
-            <div class="kpi-card">
-                <span class="kpi-titulo">Agendamentos Hoje</span>
-                <span class="kpi-valor">14</span>
+        <div class="kpi-grid-mobile">
+            <div class="kpi-card-mobile">
+                <span class="kpi-titulo-mobile">Hoje</span>
+                <span class="kpi-valor-mobile">14</span>
             </div>
-            <div class="kpi-card">
-                <span class="kpi-titulo">Faturamento Est.</span>
-                <span class="kpi-valor kpi-destaque">R$ 840,00</span>
+            <div class="kpi-card-mobile">
+                <span class="kpi-titulo-mobile">Receita Est.</span>
+                <span class="kpi-valor-mobile kpi-destaque">R$ 840</span>
             </div>
-            <div class="kpi-card">
-                <span class="kpi-titulo">Serviço Mais Pedido</span>
-                <span class="kpi-valor" style="font-size: 1.3rem; margin-top: 10px;">Corte + Barba</span>
-            </div>
-            <div class="kpi-card">
-                <span class="kpi-titulo">Ticket Médio</span>
-                <span class="kpi-valor kpi-destaque">R$ 60,00</span>
+            <div class="kpi-card-mobile" style="grid-column: span 2;">
+                <span class="kpi-titulo-mobile">Serviço Mais Rentável</span>
+                <span class="kpi-valor-mobile" style="font-size: 1.1rem; color: var(--gold-neon);">Corte + Barba</span>
             </div>
         </div>
 
-        <div class="charts-grid">
-            <div class="chart-box">
-                <h2>Fluxo de Clientes na Semana</h2>
-                <canvas id="graficoFluxo"></canvas>
-            </div>
+        <section class="card-mobile">
+            <span class="section-tag">Controle de Horários</span>
+            <h2>Agenda de Hoje</h2>
             
-            <div class="chart-box">
-                <h2>Distribuição de Serviços</h2>
-                <canvas id="graficoServicos"></canvas>
-            </div>
-        </div>
+            <div id="listaAdminAgendamentos" class="admin-agenda-lista">
+                </div>
+        </section>
 
-        <div class="management-box">
-            <div class="management-header">
-                <h2>Agenda de Clientes</h2>
-                <span class="agenda-count">4 Atendimentos Restantes</span>
-            </div>
-            
-            <div class="table-wrapper">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Horário</th>
-                            <th>Cliente</th>
-                            <th>Serviço</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="table-time">09:30</td>
-                            <td>Carlos Eduardo</td>
-                            <td>Corte Comum</td>
-                            <td><span class="status-badge status-done">Concluído</span></td>
-                            <td><button class="btn-action" onclick="abrirModal('Carlos Eduardo', 'Corte Comum', '09:30', 'Concluído')">Detalhes</button></td>
-                        </tr>
-                        <tr>
-                            <td class="table-time">10:15</td>
-                            <td>Matheus Silva</td>
-                            <td>Corte + Barba</td>
-                            <td><span class="status-badge status-confirmed">Confirmado</span></td>
-                            <td><button class="btn-action" onclick="abrirModal('Matheus Silva', 'Corte + Barba', '10:15', 'Confirmado')">Detalhes</button></td>
-                        </tr>
-                        <tr>
-                            <td class="table-time">11:00</td>
-                            <td>Arthur Henrique</td>
-                            <td>Nevou / Platinado</td>
-                            <td><span class="status-badge status-confirmed">Confirmado</span></td>
-                            <td><button class="btn-action" onclick="abrirModal('Arthur Henrique', 'Nevou / Platinado', '11:00', 'Confirmado')">Detalhes</button></td>
-                        </tr>
-                        <tr>
-                            <td class="table-time">14:00</td>
-                            <td>Lucas Ferreira</td>
-                            <td>Barba Completa</td>
-                            <td><span class="status-badge status-pending">Pendente</span></td>
-                            <td><button class="btn-action" onclick="abrirModal('Lucas Ferreira', 'Barba Completa', '14:00', 'Pendente')">Detalhes</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <section class="card-mobile">
+            <span class="section-tag">Demanda Semanal</span>
+            <h2>Fluxo de Clientes</h2>
+            <canvas id="graficoFluxo" style="margin-top: 20px;"></canvas>
+        </section>
 
-    </div>
+        <section class="card-mobile">
+            <span class="section-tag">Inteligência de Vendas</span>
+            <h2>Mix de Serviços</h2>
+            <canvas id="graficoServicos" style="margin-top: 20px;"></canvas>
+        </section>
+
+    </main>
 
     <div id="modalDetalhes" class="modal-overlay" style="display: none;">
         <div class="modal-content">
@@ -123,13 +79,51 @@
             <div class="modal-body">
                 <p><strong>Cliente:</strong> <span id="modalCliente">--</span></p>
                 <p><strong>Serviço:</strong> <span id="modalServico">--</span></p>
-                <p><strong>Horário:</strong> <span id="modalHorario">--</span></p>
+                <p><strong>Horário:</strong> <span id="modalHorario" style="color: var(--gold-neon); font-weight: 700;">--</span></p>
                 <p><strong>Status:</strong> <span id="modalStatus">--</span></p>
             </div>
         </div>
     </div>
 
     <script>
+        function carregarAgendaAdmin() {
+            const lista = document.getElementById('listaAdminAgendamentos');
+            let agendamentos = JSON.parse(localStorage.getItem('ruy_agendamentos')) || [];
+
+            if(agendamentos.length === 0) {
+                agendamentos = [
+                    { nome: 'Carlos Eduardo', servico: 'Corte Comum', data: '2026-05-25', hora: '09:30', status: 'Concluído' },
+                    { nome: 'Arthur Henrique', servico: 'Nevou / Platinado', data: '2026-05-25', hora: '11:00', status: 'Confirmado' },
+                    { nome: 'Lucas Ferreira', servico: 'Barba Completa', data: '2026-05-25', hora: '14:00', status: 'Pendente' }
+                ];
+            }
+
+            lista.innerHTML = ''; 
+
+            agendamentos.forEach(ag => {
+                let badgeClass = 'status-pending';
+                if(ag.status === 'Confirmado') badgeClass = 'status-confirmed';
+                if(ag.status === 'Concluído') badgeClass = 'status-done';
+
+                const item = document.createElement('div');
+                item.className = 'admin-agenda-item';
+                item.onclick = () => abrirModal(ag.nome, ag.servico, ag.hora, ag.status);
+                
+                item.innerHTML = `
+                    <div class="admin-agenda-info">
+                        <span class="admin-agenda-time">${ag.hora}</span>
+                        <span class="admin-agenda-name">${ag.nome}</span>
+                        <span class="admin-agenda-service">${ag.servico}</span>
+                    </div>
+                    <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; justify-content: center;">
+                        <span class="status-badge ${badgeClass}">${ag.status}</span>
+                        <span style="font-size: 0.7rem; color: var(--text-muted); margin-top: 10px;">Ver mais ➔</span>
+                    </div>
+                `;
+                lista.appendChild(item);
+            });
+        }
+
         Chart.defaults.color = '#94a3b8';
         Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
 
@@ -137,42 +131,20 @@
         new Chart(ctxFluxo, {
             type: 'bar',
             data: {
-                labels: ['Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                datasets: [{
-                    label: 'Agendamentos',
-                    data: [8, 12, 15, 25, 32],
-                    backgroundColor: '#e5c158',
-                    borderRadius: 6
-                }]
+                labels: ['Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                datasets: [{ data: [8, 12, 15, 25, 32], backgroundColor: '#e5c158', borderRadius: 4 }]
             },
-            options: {
-                responsive: true,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { grid: { color: '#1e1e24' }, beginAtZero: true },
-                    x: { grid: { display: false } }
-                }
-            }
+            options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#1e1e24' } }, x: { grid: { display: false } } } }
         });
 
         const ctxServicos = document.getElementById('graficoServicos').getContext('2d');
         new Chart(ctxServicos, {
             type: 'doughnut',
             data: {
-                labels: ['Corte Comum', 'Corte + Barba', 'Nevou', 'Outros'],
-                datasets: [{
-                    data: [45, 30, 15, 10],
-                    backgroundColor: ['#e5c158', '#bfa143', '#f8fafc', '#1e1e24'],
-                    borderWidth: 0
-                }]
+                labels: ['Comum', 'Combo', 'Nevou', 'Outros'],
+                datasets: [{ data: [45, 30, 15, 10], backgroundColor: ['#e5c158', '#bfa143', '#f8fafc', '#1e1e24'], borderWidth: 0 }]
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'bottom' }
-                },
-                cutout: '70%'
-            }
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } }, cutout: '75%' }
         });
 
         function abrirModal(cliente, servico, horario, status) {
@@ -180,48 +152,12 @@
             document.getElementById('modalServico').innerText = servico;
             document.getElementById('modalHorario').innerText = horario;
             document.getElementById('modalStatus').innerText = status;
-            
             document.getElementById('modalDetalhes').style.display = 'flex';
         }
 
-        function fecharModal() {
-            document.getElementById('modalDetalhes').style.display = 'none';
-        }
+        function fecharModal() { document.getElementById('modalDetalhes').style.display = 'none'; }
 
-
-        function carregarTabelaAdmin() {
-            const tbody = document.querySelector('.admin-table tbody');
-            let agendamentos = JSON.parse(localStorage.getItem('ruy_agendamentos')) || [];
-
-            // Se não tiver nada agendado, injeta dados falsos só para a apresentação não ficar vazia
-            if(agendamentos.length === 0) {
-                agendamentos = [
-                    { nome: 'Carlos Eduardo', servico: 'Corte Comum', data: '2026-05-25', hora: '09:30', status: 'Concluído' },
-                    { nome: 'Arthur Henrique', servico: 'Nevou / Platinado', data: '2026-05-25', hora: '11:00', status: 'Confirmado' }
-                ];
-            }
-
-            tbody.innerHTML = '';
-
-            agendamentos.forEach(ag => {
-                let badgeClass = 'status-pending';
-                if(ag.status === 'Confirmado') badgeClass = 'status-confirmed';
-                if(ag.status === 'Concluído') badgeClass = 'status-done';
-
-                const linha = document.createElement('tr');
-                linha.innerHTML = `
-                    <td class="table-time">${ag.hora}</td>
-                    <td>${ag.nome}</td>
-                    <td>${ag.servico}</td>
-                    <td><span class="status-badge ${badgeClass}">${ag.status}</span></td>
-                    <td><button class="btn-action" onclick="abrirModal('${ag.nome}', '${ag.servico}', '${ag.hora}', '${ag.status}')">Detalhes</button></td>
-                `;
-                tbody.appendChild(linha);
-            });
-        }
-
-        window.addEventListener('DOMContentLoaded', carregarTabelaAdmin);
-
+        window.addEventListener('DOMContentLoaded', carregarAgendaAdmin);
     </script>
 </body>
 </html>
